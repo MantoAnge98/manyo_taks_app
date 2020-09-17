@@ -21,7 +21,7 @@ class TasksController < ApplicationController
       if @task.save
         redirect_to taks_path, notice: 'Task was successfully created.'
       else
-        render :new, flash: { info: "Task was not saved!"}
+        render :new, flash.now[:notice] = "Task was not saved!"
       end
     end
   end
@@ -36,7 +36,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to taks_path, notice: 'Task was successfully created.'
     else
-      render :edit, flash: { info: "Task was not update!"}
+      render :edit, flash.now[:notice] ="Task was not update!"
     end
   end  
 
