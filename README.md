@@ -1,24 +1,35 @@
-# README
+# App Name : Manyo Task 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Databse Name : manyo_task_ap
 
-Things you may want to cover:
+### Name to table 1 :  label
 
-* Ruby version
+Columnn Name | Column Type
+------------ | -------------
+id_label     | int
+label_name   | string
 
-* System dependencies
+### Name to table 2 :  tasks
 
-* Configuration
+Columnn Name  | Column Type
+------------- | -------------
+id_tasks      | int
+tasks_name    | string
+tasks_details | text
+date_start    | date
+date_end      | date
+tasks_priority| int
+tasks_statuts | int
+id_label      | int
+id_user       | int
 
-* Database creation
 
-* Database initialization
+### Name to table 3 :  user
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Columnn Name   | Column Type
+-------------- | -------------
+id_user        | int
+user_name      | string
+user_email     | string
+user_image     | text
+password_digest| string
