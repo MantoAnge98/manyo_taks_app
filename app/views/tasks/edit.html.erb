@@ -1,19 +1,21 @@
-<%= form_with(model: @blog, local: true) do |form| %>
-  <% if @blog.errors.any? %>
+<%= form_with(model: @task, local: true) do |form| %>
+  <% if @task.errors.any? %>
     <div id="error_explanation">
-      <h4><%= @blog.errors.count%> Il y a des erreurs.</h4>
+      <h4><%= @task.errors.count%> There are one or more errors...</h4>
       <div class="alert alert-danger">
-        <% @blog.errors.full_messages.each do |msg| %>
+        <% @task.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
       </div>
     </div>
   <% end %> 
-  <div class="blog_content">
-    <%= form.label :content%>
-    <%= form.text_area :content%>
+  <div>
+    <%= form.label :name%>
+    <%= form.text_field :name%>
+    <%= form.label :detail%>
+    <%= form.text_area :detail%>
   </div>
-  <%= form.submit %>
+  <%= form.submit  "Edit"%>
 <% end %>
 
-<%= link_to "Retour à la liste des Tweets", blogs_path %>
+<%= link_to "Task List", tasks_path %>

@@ -1,9 +1,11 @@
-<h3>Le Contenu envoyé</h3>
-<%= form_with(model: @blog, url: blogs_path, local: true) do |form| %> 
-  <%= form.hidden_field :content %> 
-  <p>Content:<%= @blog.content %></p>
-  <%= form.submit  "Valider" %>
-  <%= form.submit "Retour", name: 'back' %>
+<h3>Confirmation page</h3>
+<%= form_with(model: @task, url: tasks_path, local: true) do |form| %> 
+  <%= form.hidden_field :name %> 
+  <p>Name:<%= @task.name %></p>
+  <%= form.hidden_field :detail %> 
+  <p>Detail:<%= task.detail %></p>
+  <%= form.submit  "Regsiter" %>
+  <%= form.submit "Back", name: 'back' %>
 <% end %>
 
-<%= link_to "Retour à la liste des Tweets", blogs_path %>
+<%= link_to "Task List", tasks_path %>

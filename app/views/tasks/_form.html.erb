@@ -1,12 +1,24 @@
-<%= form_with(model: @blog, local: true ,url: confirm_blogs_path) do |form| %>
-<% if @blog.errors.any? %>
-      <div class="alert alert-danger" role="alert">Please this field must not be empty / Do not also exceed 140 craters. </div>
+<h4>Enter Information</h4>
+  <% if @task.errors.any? %>
+   <div id="error_explanation">
+      <h4>
+        <%= pluralize(@task.errors.count, "error") %> prohibited
+        this article from being saved:
+      </h4>
+      <ul>
+        <% @task.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>  
   <% end %>
-  <div class="blog_title" class="input-group">
-    <%= form.label :content %>
-    <%= form.text_area :content%> 
-  </div>
-  <%= form.submit %>
-<% end %>
-<%= link_to "Retour à la liste des Tweets", blogs_path %>
 
+ <%= form_with(model: @task, local: true ,url: confirm_tasks_path) do |form| %>
+  <%= form.label :name%>
+  <%= form.text_field :name %> 
+  <%= form.label :detail%>
+  <%= form.text_area :detail %> 
+ <%= form.submit "Create Task"%>
+<% end %>
+
+ <%= link_to "All Task", tasks_path %> 
