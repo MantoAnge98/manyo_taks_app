@@ -1,6 +1,6 @@
 # App Name : Manyo Task 
 
-## Databse Name : manyo_task_ap
+## Databse Name : manyo_task_app
 
 ### Name to table 1 :  label
 
