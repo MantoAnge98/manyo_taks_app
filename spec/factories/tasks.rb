@@ -10,6 +10,6 @@ FactoryBot.define do
   # (To name a class name that does not exist, specify the option "Test data for this class")
   factory :second_task, class: Task do
     name { 'Default title 2 created in the Factory' }
-    details { 'Default content 2 created by Factory' }
+    detail { 'Default content 2 created by Factory' }
   end
 end
