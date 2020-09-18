@@ -18,9 +18,9 @@ RSpec.configure do |config|
     driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400], options: { args: ['no-sandbox'] } if example.metadata[:type] == :system
   end
 
-  config.before(:each, type: :system) do
-    driven_by(:selenium_chrome)
-  end
+  #config.before(:each, type: :system) do
+   # driven_by(:selenium_chrome)
+  #end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
