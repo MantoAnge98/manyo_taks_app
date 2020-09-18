@@ -3,4 +3,6 @@
     <p>name: <%= @task.name %></p>
     <p>Detail: <%= @task.detail %></p>
   </div>
-<%= link_to "Tals list", tasks_path %>
+<%= link_to "Task list", tasks_path %>
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>
