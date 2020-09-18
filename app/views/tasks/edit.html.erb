@@ -28,13 +28,15 @@
                 <%= form.label :detail%>
                 <%= form.text_area :detail, :class=> "form-control"%>
                 </div>
+                <hr>
+                <%= form.submit  "Edit", :class => "btn btn-success col-3" %> |
+                <%= form.submit "Back", name: 'back', :class => "btn btn-secondary col-3" %>
+              </div>
+              
             </div>
             <hr>
-            <%= form.submit  "Edit", :class => "btn btn-success col-3" %> |
-            <%= form.submit "Back", name: 'back', :class => "btn btn-secondary col-3" %>
+            <%= link_to "Task List", tasks_path, :class => "btn btn-primary col-4"  %>
           <% end %>
-          <hr>
-          <%= link_to "Task List", tasks_path, :class => "btn btn-primary col-4"  %>
       </div>
     </div>
   </div>
