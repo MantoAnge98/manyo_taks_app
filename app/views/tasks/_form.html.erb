@@ -1,4 +1,6 @@
 <h4>Enter Information</h4>
+<%= form_with(model: @task, local: true, url: confirm_tasks_path) do |form| %>
+    
   <% if @task.errors.any? %>
    <div id="error_explanation">
       <h4>
@@ -13,12 +15,11 @@
     </div>  
   <% end %>
 
- <%= form_with(model: @task, local: true ,url: confirm_tasks_path) do |form| %>
   <%= form.label :name%>
   <%= form.text_field :name %> 
   <%= form.label :detail%>
   <%= form.text_area :detail %> 
- <%= form.submit "Create Task"%>
+  <%= form.submit "Create Task"%>
 <% end %>
 
  <%= link_to "All Task", tasks_path %> 

@@ -5,12 +5,8 @@ class TasksController < ApplicationController
     @task = Task.all
   end
 
-  def new
-    if params[:back]
-      @task = Task.new(task_params)
-    else        
+  def new       
       @task = Task.new
-    end
   end
 
   def create
@@ -19,9 +15,9 @@ class TasksController < ApplicationController
       render :new
     else
       if @task.save
-        redirect_to taks_path, notice: 'Task was successfully created.'
+        redirect_to tasks_path, notice: 'Task was successfully created.'
       else
-        render :new, flash.now[:notice] = "Task was not saved!"
+        render :new
       end
     end
   end
@@ -31,12 +27,17 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
+  def confirm
+    @task = Task.new(task_params)
+    render :new if @task.invalid?
+  end
+
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      redirect_to taks_path, notice: 'Task was successfully created.'
+      redirect_to tasks_path, notice: 'Task was successfully created.'
     else
-      render :edit, flash.now[:notice] ="Task was not update!"
+      render :edit
     end
   end  
 
@@ -46,15 +47,15 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to taks_path, notice: 'Task was successfully deleted.'
+    redirect_to tasks_path, notice: 'Task was successfully deleted.'
   end
 
   private
-    def task_params
-      params.require(:task).permit(:name, :detail)
-    end
-    
-    def set_task
-      @task = Task.find(params[:id])
-    end
+  def task_params
+    params.require(:task).permit(:name, :detail)
+  end
+  
+  def set_task
+    @task = Task.find(params[:id])
+  end
 end

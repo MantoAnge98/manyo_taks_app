@@ -3,7 +3,7 @@
 <%= form_with(model: @task, url: tasks_path, local: true) do |form| %> 
   <%= form.hidden_field :name %> 
   <p>Name:<%= @task.name %></p>
-  <%= form.hidden_field :detail %> 
+  <%= form.hidden_area :detail %> 
   <p>Detail:<%= task.detail %></p>
   <%= form.submit  "Confirm" %>
   <%= form.submit "Back", name: 'back' %>
