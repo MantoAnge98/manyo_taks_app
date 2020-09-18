@@ -1,8 +1,21 @@
-<h1>Detail Tasks </h1>
-  <div>
-    <p>name: <%= @task.name %></p>
-    <p>Detail: <%= @task.detail %></p>
+<div class="row">
+  <div class="col-12">
+    <h1 class="mt-5">View Task</h1>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <h3>Detail Task</h1>
+        <div>
+          <p>name: <%= @task.name %></p>
+          <p>Detail: <%= @task.detail %></p>
+        </div>
+        <hr>
+        <%= link_to "Task list", tasks_path , :class => "btn btn-primary col-2" %> |
+        <%= link_to 'Edit', edit_task_path(@task) , :class => "btn btn-danger col-2" %> |
+        <%= link_to 'Back', tasks_path , :class => "btn btn-secondary col-2" %>
+      </div>
+      <div class="col-2"></div>
+    </div>
   </div>
-<%= link_to "Task list", tasks_path %>
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+</div>
+          

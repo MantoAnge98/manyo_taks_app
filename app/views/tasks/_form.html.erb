@@ -1,25 +1,38 @@
-<h4>Enter Information</h4>
-<%= form_with(model: @task, local: true, url: confirm_tasks_path) do |form| %>
-    
-  <% if @task.errors.any? %>
-   <div id="error_explanation">
-      <h4>
-        <%= pluralize(@task.errors.count, "error") %> prohibited
-        this article from being saved:
-      </h4>
-      <ul>
-        <% @task.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>  
-  <% end %>
-
-  <%= form.label :name%>
-  <%= form.text_field :name %> 
-  <%= form.label :detail%>
-  <%= form.text_area :detail %> 
-  <%= form.submit "Create Task"%>
-<% end %>
-
- <%= link_to "All Task", tasks_path %> 
+<div class="row">
+  <div class="col-12">
+    <h1 class="mt-5">New Task</h1>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-8">
+        <h4>Enter Information</h4>
+          <%= form_with(model: @task, local: true, url: confirm_tasks_path) do |form| %>
+            <% if @task.errors.any? %>
+              <div id="error_explanation">
+                <h4>
+                <%= pluralize(@task.errors.count, "error") %> prohibited
+                this article from being saved:
+                </h4>
+                <ul>
+                <% @task.errors.full_messages.each do |msg| %>
+                  <div class="alert alert-danger">
+                    <li><%= msg %></li>
+                  </div>
+                <% end %>
+                </ul>
+              </div>  
+            <% end %>
+            <%= form.label :name%>
+            <%= form.text_field :name , :class => "form-control"%> 
+            <%= form.label :detail%>
+            <%= form.text_area :detail , :class => "form-control"%>
+            <hr> 
+            <%= form.submit "Create Task", :class => "btn btn-primary col-3"%>
+          <% end %> 
+          <hr>
+          <h4> Go to:</h4>
+          <%= link_to "All Task", tasks_path, :class => "btn btn-secondary col-3" %> 
+      </div>
+    </div>
+  </div>
+</div>
+        
