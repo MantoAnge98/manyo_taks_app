@@ -2,9 +2,12 @@
 <div class="row">
   <div class="col-12">
     <h1 class="mt-5">Welcome to Tasks App</h1>
+      <div class="row justify-content-md-center">
+        <div class="col">
+        </div>
+      </div>
       <div class="row">
-        <div class="col-2"></div>
-        <div class="col-8">
+        <div class="col-12">
           <% flash.each do |key, value| %>
             <div class="alert alert-<%= key %>"><%= value %></div>
           <% end %>
@@ -15,6 +18,7 @@
               <tr>
                 <th>Names</th>
                 <th>Details</th>
+                <th>Deadline</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -23,6 +27,7 @@
               <tr>
                 <td><%= task.name %></td> 
                 <td><%= task.detail %></td>
+                <td><%= task.deadline%></td>
                 <td>
                   <%= link_to "See", task_path(task.id), :class => "btn btn-success"%>  
                   <%= link_to "Edit", edit_task_path(task.id),  :class => "btn btn-primary"%>
@@ -37,7 +42,6 @@
             <%= link_to 'New  Task', new_task_path,  :class => "btn btn-secondary col-4"%>
           </div>
         </div>
-        <div class="col-2"></div>
       </div>
   </div>
 </div>
