@@ -5,11 +5,19 @@ FactoryBot.define do
   factory :task do
     name { 'Default title 1 created in the Factory' }
     detail { 'Default content 1 created by Factory' }
+    deadline {DateTime.now}
   end
   # Name the test data to be created as "second_task
   # (To name a class name that does not exist, specify the option "Test data for this class")
   factory :second_task, class: Task do
     name { 'Default title 2 created in the Factory' }
     detail { 'Default content 2 created by Factory' }
+    deadline {DateTime.tomorrow}
+  end
+
+  factory :third_task, class: Task do
+    name { 'Default title 3 created in the Factory' }
+    detail { 'Default content 3 created by Factory' }
+    deadline {DateTime.now.since(5.days)}
   end
 end 
