@@ -2,7 +2,16 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @task = Task.all
+    #Use params sort_expired + deadline property
+    #to create tri ystem
+    if params[:sort_expired]
+      @tasks = Task.all
+      @tasks = @tasks.order(deadline: :desc)
+    else
+      @tasks = Task.all
+      @tasks = @tasks.order(created_at: :desc)
+    end
+    
   end
 
   def new       
@@ -34,12 +43,16 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find(params[:id])
-    if @task.update(task_params)
-      flash[:success] =  "Task was successfully updated."
-      redirect_to tasks_path
+    if params[:back]
+      render :new
     else
-      render :edit
+      @task = Task.find(params[:id])
+      if @task.update(task_params)
+        flash[:success] =  "Task was successfully updated."
+        redirect_to tasks_path
+      else
+        render :edit
+      end
     end
   end  
 
@@ -55,7 +68,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:name, :detail)
+    params.require(:task).permit(:name, :detail, :deadline)
   end
   
   def set_task
