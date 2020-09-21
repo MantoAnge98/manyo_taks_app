@@ -3,14 +3,7 @@
   <div class="col-12">
     <h1 class="mt-5">Welcome to Tasks App</h1>
       <div class="row justify-content-md-center">
-        <div class="col-12">
-          <%= form_with(model: Task.new, method: :get, local: true, url: tasks_path) do |form| %>
-          <%= form.text_field :name %>
-          <button type="button" class="btn btn-dark">
-          #Define params sort expired to show order dadline
-          <%= form.submit 'Sort by end deadline', tasks_path(sort_expired: "true")%>
-          </button>
-   
+        <div class="col-12"> 
         </div>
       </div>
       <div class="row">
@@ -20,6 +13,12 @@
           <% end %>
             <h3>Tasks List</h1>
             <p><%= notice%></p>
+            <hr>
+            <div>
+               <!--Define params sort expired to show order dadline -->
+              <%= link_to "Sort by end deadline", tasks_path(sort_expired: "true"), :class => "btn btn-secondary col-2"%> 
+            </div>
+            <hr>
             <table class="table">
             <thead class="thead-light">
               <tr>
