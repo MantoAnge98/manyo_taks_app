@@ -26,9 +26,11 @@
             <%= form.label :detail%>
             <%= form.text_area :detail , :class => "form-control"%>
             <%= form.label :deadline%>
-           <!-- Definir la date_field a maintenant.
-            <%= form.date_field :deadline , :class => "form-control", :value => Time.now.strftime("%Y-%m-%d")%> -->     
-            <%= form.date_field :deadline , :class => "form-control"%>       
+            <!-- Definir la date_field a maintenant.--> 
+            <%= form.date_field :deadline , :class => "form-control", :value => Time.now.strftime("%Y-%m-%d")%>  
+            <%= form.label :status%>
+            <%= form.number_field :name , :class => "form-control"%> 
+              
           <hr> 
             <%= form.submit "Create Task", :class => "btn btn-primary col-3"%>
           <% end %> 
