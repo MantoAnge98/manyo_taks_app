@@ -10,7 +10,7 @@
               <div id="error_explanation">
                 <h4>
                 <%= pluralize(@task.errors.count, "error") %> prohibited
-                this article from being saved:
+                this task from being saved:
                 </h4>
                 <ul>
                 <% @task.errors.full_messages.each do |msg| %>
@@ -25,7 +25,9 @@
             <%= form.text_field :name , :class => "form-control"%> 
             <%= form.label :detail%>
             <%= form.text_area :detail , :class => "form-control"%>
-            <hr> 
+            <%= form.label :deadline%>
+            <%= form.text_field :deadline , :class => "form-control"%>       
+          <hr> 
             <%= form.submit "Create Task", :class => "btn btn-primary col-3"%>
           <% end %> 
           <hr>
