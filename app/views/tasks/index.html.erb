@@ -30,32 +30,50 @@
             </div>
             <hr>
             <table class="table">
-            <thead class="thead-light">
-              <tr>
-                <th>Names</th>
-                <th>Details</th>
-                <th>Deadline</th>
-                <th>Status</th>
-                <th>Priority</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <% @task.each do |task| %>
-            <tbody>
-              <tr>
-                <td><%= task.name %></td> 
-                <td><%= task.detail %></td>
-                <td><%= task.deadline%></td>
-                <td><%= task.status%></td>
-                <td><%= task.priority%></td>
-                <td>
-                  <!--btn -sm réduit à la taille minmale le bouton-->
-                  <%= link_to "See", task_path(task.id), :class => "btn btn-outline-success"%>  
-                  <%= link_to "Edit", edit_task_path(task.id),  :class => "btn btn-outline-primary"%>
-                  <%= link_to "Delete", task_path(task.id), method: :delete, data: {confirm: 'Are you sure?'},  :class => "btn btn-outline-danger"%> 
-                </td>
-              </tr>
-            </tbody>
+              <thead class="thead-light">
+                <tr>
+                  <th>Names</th>
+                  <th>Details</th>
+                  <th>Deadline</th>
+                  <th>Status</th>
+                  <th>Priority</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <% @task.each do |task| %>
+              <tbody>
+                <tr>
+                  <td>
+                    <%= task.name %>
+                  </td> 
+                  <td>
+                    <%= task.detail %>
+                  </td>
+                  <td>
+                    <%= task.deadline%>
+                  </td>
+                  <td>
+                    <% if task.status == "completed" && task.status.present?%>
+                      <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Success!</strong> Good Job.
+                      </div>
+                      <%= task.status%>
+                    <%else%>
+                      <%= task.status%>
+                    <%end%>
+                  </td>
+                  <td> 
+                    <%= task.priority%>
+                  </td>
+                  <td>
+                    <!--btn-sm réduit à la taille minmale le bouton-->
+                    <%= link_to "See", task_path(task.id), :class => "btn btn-outline-success"%>  
+                    <%= link_to "Edit", edit_task_path(task.id),  :class => "btn btn-outline-primary"%>
+                    <%= link_to "Delete", task_path(task.id), method: :delete, data: {confirm: 'Are you sure?'},  :class => "btn btn-outline-danger"%> 
+                  </td>
+                </tr>
+              </tbody>
             <% end %>
             </table>
           <hr>
@@ -64,6 +82,7 @@
           </div>
         </div>
       </div>
+    </div>
   </div>
 </div>
 
