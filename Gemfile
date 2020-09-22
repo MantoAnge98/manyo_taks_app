@@ -74,3 +74,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #Ruby internationalization and localization (i18n) solution.
 gem 'rails-i18n'
+#Enums can be defined and accessed either as constants or class methods, which is a matter of preference.
+gem 'enum_help'
