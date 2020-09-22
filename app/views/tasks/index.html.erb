@@ -59,6 +59,18 @@
                         <strong>Success!</strong> Good Job.
                       </div>
                       <%= task.status%>
+                    <%elsif task.status == "not_yet" && task.status.present?%>
+                      <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Be Carful!</strong> Double the effort.
+                      </div>
+                       <%= task.status%>
+                    <%elsif task.status == "in_progress" && task.status.present?%>
+                      <div class="alert alert-warning alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Courage!</strong> Still an effort.
+                      </div>
+                       <%= task.status%>
                     <%else%>
                       <%= task.status%>
                     <%end%>
