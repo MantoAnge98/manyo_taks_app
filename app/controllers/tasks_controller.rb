@@ -39,7 +39,7 @@ class TasksController < ApplicationController
       end
     end
 
-    #Add Kiminari function to display the page
+    #Add Kaminari function to display the page
     @task = @task.page(params[:page]).per(5)
   end
 
