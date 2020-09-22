@@ -29,8 +29,9 @@
             <!-- Definir la date_field a maintenant.--> 
             <%= form.date_field :deadline , :class => "form-control", :value => Time.now.strftime("%Y-%m-%d")%>  
             <%= form.label :status%>
-            <%= form.number_field :name , :class => "form-control"%> 
-              
+            <%= form.select :status, options_for_select(["0","1","2"], {class: "form-control"})%> 
+            <%= form.label :priority%>
+            <%= form.select :priority,  options_for_select(["0","1"], {class: "form-control"})%>        
           <hr> 
             <%= form.submit "Create Task", :class => "btn btn-primary col-3"%>
           <% end %> 

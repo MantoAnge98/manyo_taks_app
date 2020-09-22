@@ -25,6 +25,8 @@
                 <th>Names</th>
                 <th>Details</th>
                 <th>Deadline</th>
+                <th>Status</th>
+                <th>Priority</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -34,6 +36,8 @@
                 <td><%= task.name %></td> 
                 <td><%= task.detail %></td>
                 <td><%= task.deadline%></td>
+                <td><%= task.status%></td>
+                <td><%= task.priority%></td>
                 <td>
                   <%= link_to "See", task_path(task.id), :class => "btn btn-success"%>  
                   <%= link_to "Edit", edit_task_path(task.id),  :class => "btn btn-primary"%>

@@ -23,12 +23,16 @@
             <div class="row">
               <div class="col-12">
                 <div>
-                <%= form.label :name%>
-                <%= form.text_field :name, :class=> "form-control"%>
-                <%= form.label :detail%>
-                <%= form.text_area :detail, :class=> "form-control"%>
-                <%= form.label :deadline%>
-                <%= form.text_field :deadline, :class=> "form-control"%>
+                  <%= form.label :name%>
+                  <%= form.text_field :name, :class=> "form-control"%>
+                  <%= form.label :detail%>
+                  <%= form.text_area :detail, :class=> "form-control"%>
+                  <%= form.label :deadline%>
+                  <%= form.text_field :deadline, :class=> "form-control"%>
+                  <%= form.label :status%>
+                  <%= form.select :status, :class=> "form-control"%>
+                  <%= form.label :priority%>
+                  <%= form.select :priority, :class=> "form-control"%>
                 </div>
                 <hr>
                 <%= form.submit  "Edit", :class => "btn btn-success col-3" %> |

@@ -22,6 +22,16 @@
                   <h4>Deadline:</h4>
                 <%= @task.deadline %>  
               </div>
+              <div class="col-12">
+                <%= form.hidden_field :status %> 
+                  <h4>Status:</h4>
+                <%= @task.status %>  
+              </div>
+              <div class="col-12">
+                <%= form.hidden_field :priority %> 
+                  <h4>Priority:</h4>
+                <%= @task.priority %>  
+              </div>
             </div>
             <hr>
             <%= form.submit  "Confirm", :class => "btn btn-success col-3" %> |
