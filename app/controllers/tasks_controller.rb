@@ -15,7 +15,7 @@ class TasksController < ApplicationController
     #Define Pirority, order by asc
     if params[:sort_priority_high]
       @task = Task.all
-      @task = @task.order(prority: :asc)
+      @task = @task.order(priority: :asc)
     end
 
      #return results that are both name and status
