@@ -28,11 +28,19 @@
                   <%= form.label :detail%>
                   <%= form.text_area :detail, :class=> "form-control"%>
                   <%= form.label :deadline%>
-                  <%= form.text_field :deadline, :class=> "form-control"%>
-                  <%= form.label :status%>
-                  <%= form.select :status, :class=> "form-control"%>
-                  <%= form.label :priority%>
-                  <%= form.select :priority, :class=> "form-control"%>
+                  <%= form.text_field :deadline, :class=> "form-control", :value => Time.now.strftime("%Y-%m-%d")%> 
+                  <!--<%= form.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.tasks.status.#{k}"), k]}, include_blank: "Please make your choice."%> -->
+                  <div class="form-group">
+                    <%= form.label :status%>
+                    <%= form.select :status , Task.statuses.keys.map{|k| [("#{k}"), k]}, {} , {include_blank: "Please make your choice." , :class => 'custom-select'} %>
+                  </div>
+                  <!-- <%= form.select :status, options_for_select(["0","1","2"], {class: "form-control"})%>  -->
+                  <div class="form-group">
+                    <%= form.label :priority%>
+                    <%= form.select :priority, Task.priorities.keys.map{|k| [("#{k}"), k]}, {} , {include_blank: "Please make your choice.", :class => 'custom-select'}%>
+                    <!--<%= form.select :priority,  options_for_select(["0","1"], {class: "form-control"})%> -->       
+                  </div>
+                  <!--<%= form.select :priority,  options_for_select(["0","1"], {class: "form-control"})%> -->         
                 </div>
                 <hr>
                 <%= form.submit  "Edit", :class => "btn btn-success col-3" %> |

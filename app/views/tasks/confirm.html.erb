@@ -1,38 +1,46 @@
 <div class="row">
   <div class="col-12">
-    <h1 class="mt-5">Confirmation page</h1>
+    <h1 class="mt-5" style="background-color: #5412;margin-bottom: 25px;">Confirmation page</h1>
     <div class="row">
       <div class="col-2"></div>
       <div class="col-8">
-        <h3>Task insformation</h3>
+        <h3 style="margin-bottom: 25px;font-family: cursive;font-size: larger;">Task insformation</h3>
           <%= form_with(model: @task, url: tasks_path, local: true) do |form| %> 
-            <div class="row">
-              <div class="col-12">
-                <%= form.hidden_field :name %> 
-                  <h4>Name:</h4>
-                <%= @task.name %>
-              </div>
-              <div class="col-12">
-                <%= form.hidden_field :detail %> 
-                  <h4>Detail:</h4>
-                <%= @task.detail %>  
-              </div>
-              <div class="col-12">
-                <%= form.hidden_field :deadline %> 
-                  <h4>Deadline:</h4>
-                <%= @task.deadline %>  
-              </div>
-              <div class="col-12">
-                <%= form.hidden_field :status %> 
-                  <h4>Status:</h4>
-                <%= @task.status %>  
-              </div>
-              <div class="col-12">
-                <%= form.hidden_field :priority %> 
-                  <h4>Priority:</h4>
-                <%= @task.priority %>  
-              </div>
-            </div>
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th>Names</th>
+                  <th>Details</th>
+                  <th>Deadline</th>
+                  <th>Status</th>
+                  <th>Priority</th> 
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <%= form.hidden_field :name %> 
+                    <%= @task.name %>
+                  </td> 
+                  <td>
+                    <%= form.hidden_field :detail %> 
+                    <%= @task.detail %>
+                  </td>
+                  <td>
+                    <%= form.hidden_field :deadline %> 
+                    <%= @task.deadline%>
+                  </td>
+                  <td>
+                    <%= form.hidden_field :status %> 
+                    <%= @task.status%>
+                  </td>
+                  <td>
+                    <%= form.hidden_field :priority %> 
+                    <%= @task.priority%>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
             <hr>
             <%= form.submit  "Confirm", :class => "btn btn-success col-3" %> |
             <%= form.submit "Back", name: 'back', :class => "btn btn-secondary col-3" %>

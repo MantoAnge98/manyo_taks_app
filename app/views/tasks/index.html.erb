@@ -2,8 +2,16 @@
 <div class="row">
   <div class="col-12">
     <h1 class="mt-5">Welcome to Tasks App</h1>
-      <div class="row justify-content-md-center">
-        <div class="col-12"> 
+      <div class="row">
+        <div class="col-12" style="margin-top: 25px; margin-bottom: 25px;">
+          <%= form_with(model: Task.new, method: :get, local: true, url: tasks_path, :class => 'form-inline') do |form|%>
+            <label class="mr-sm-2">Task Search</label>
+            <%= form.text_field :name , :class => 'form-control mb-2 mr-sm-5 col-4'%>
+            <label class="mr-sm-2">Search Status</label>
+            <%= form.select :status, [["Not yet started", "0"], ["In progress", "1"], ["Finished", "2"]], {}, { include_blank: "Make you choise", :class => 'custom-select mb-2 mr-sm-5 col-2'} %>   
+          <%= form.submit 'Search', name: nil, :class => 'btn btn-outline-secondary mb-2 col-2'%>
+          <!--mb c'est le décalage du haut vers le bas et mr-sm-2 est le décalage de la gauche vers la droite-->
+          <% end %> 
         </div>
       </div>
       <div class="row">
@@ -16,7 +24,9 @@
             <hr>
             <div>
                <!--Define params sort expired to show order dadline -->
-              <%= link_to "Sort by end deadline", tasks_path(sort_expired: "true"), :class => "btn btn-secondary col-2"%> 
+              <%= link_to "Sort by end deadline", tasks_path(sort_expired: "true"), :class => "btn btn-outline-secondary btn-sm"%> 
+              <!--Define params sort expired to show order dadline -->
+              <%= link_to "Sort by end priority", tasks_path(sort_priority_high: "true"), :class => "btn btn-outline-secondary btn-sm"%> 
             </div>
             <hr>
             <table class="table">
@@ -39,9 +49,10 @@
                 <td><%= task.status%></td>
                 <td><%= task.priority%></td>
                 <td>
-                  <%= link_to "See", task_path(task.id), :class => "btn btn-success"%>  
-                  <%= link_to "Edit", edit_task_path(task.id),  :class => "btn btn-primary"%>
-                  <%= link_to "Delete", task_path(task.id), method: :delete, data: {confirm: 'Are you sure?'},  :class => "btn btn-danger"%> 
+                  <!--btn -sm réduit à la taille minmale le bouton-->
+                  <%= link_to "See", task_path(task.id), :class => "btn btn-outline-success"%>  
+                  <%= link_to "Edit", edit_task_path(task.id),  :class => "btn btn-outline-primary"%>
+                  <%= link_to "Delete", task_path(task.id), method: :delete, data: {confirm: 'Are you sure?'},  :class => "btn btn-outline-danger"%> 
                 </td>
               </tr>
             </tbody>
@@ -49,7 +60,7 @@
             </table>
           <hr>
           <div>
-            <%= link_to 'New  Task', new_task_path,  :class => "btn btn-secondary col-4"%>
+            <%= link_to 'New  Task', new_task_path,  :class => "btn btn-secondary btn-sm"%>
           </div>
         </div>
       </div>
