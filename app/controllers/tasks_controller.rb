@@ -11,7 +11,15 @@ class TasksController < ApplicationController
       @task = Task.all
       @task = @task.order(created_at: :desc)
     end
-    
+
+    #Define Pirority
+    if params[:sort_priority_hight]
+      @task = Task.all
+      @task = @task.order(prority: :asc)
+    end
+
+     #return results that are both name and status
+
   end
 
   def new       
@@ -68,7 +76,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:name, :detail, :deadline, :status)
+    params.require(:task).permit(:name, :detail, :deadline, :status, :priority)
   end
   
   def set_task
