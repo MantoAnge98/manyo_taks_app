@@ -12,14 +12,34 @@ class TasksController < ApplicationController
       @task = @task.order(created_at: :desc)
     end
 
-    #Define Pirority
-    if params[:sort_priority_hight]
+    #Define Pirority, order by asc
+    if params[:sort_priority_high]
       @task = Task.all
       @task = @task.order(prority: :asc)
     end
 
      #return results that are both name and status
+     #If task exist enter in boucle
+    if params[:task].present?
+      #If task.name and task.status is present enter in boucle
+      if params[:task][:name].present? && params[:task][:status].present?
+        #return results that are both name and status
+        #name is string search name in databse with params is [:task][:name]
+        @task = @task.where('name LIKE ?', "%#{params[:task][:name]}%")
+        #status is integer it is easy to search in databse
+        @task = @task.where(status: params[:task][:status])
+      
+      #When the only parameter passed is the task name you will do this
+      elsif params[:task][:name].present?
+        @task = @task.where('name LIKE ?', "%#{params[:task][:name]}%")
+      
+      # When the only parameter passed is the task status you will do this
+      elsif params[:task][:status].present?
+        @task = @task.where(status: params[:task][:status].present?)
+      end
+    end
 
+    
   end
 
   def new       
