@@ -76,3 +76,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rails-i18n'
 #Enums can be defined and accessed either as constants or class methods, which is a matter of preference.
 gem 'enum_help'
+#A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for modern web app frameworks and ORMs
+gem 'kaminari'
