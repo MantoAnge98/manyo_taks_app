@@ -29,6 +29,10 @@
               <%= link_to "Sort by end priority", tasks_path(sort_priority_high: "true"), :class => "btn btn-outline-secondary btn-sm"%> 
             </div>
             <hr>
+            <!-- Add paginate function-->
+            <div>
+              <%= paginate @task %>
+            </div>
             <table class="table">
               <thead class="thead-light">
                 <tr>
@@ -89,7 +93,7 @@
             <% end %>
             </table>
           <hr>
-          <nav aria-label="Page navigation example"><%= paginate @task %></nav>
+          <%= paginate @task %>
           <!--<%= render  "./kaminari/page" %>-->
           <hr>
           <div>

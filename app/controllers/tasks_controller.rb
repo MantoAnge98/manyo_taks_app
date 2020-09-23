@@ -40,7 +40,8 @@ class TasksController < ApplicationController
     end
 
     #Add Kaminari function to display the page
-    @task = @task.page(params[:page]).per(5)
+    #@task = @task.page(params[:page]).per(5)
+    @task = Task.order(:last_name).page(params[:page])
   end
 
   def new       
