@@ -14,4 +14,6 @@ class Task < ApplicationRecord
   enum status: {not_yet: 0, in_progress: 1, completed: 2}
   #prority is integer but we want to see the meaning of each number
   enum priority: {high: 0, middle: 1, low: 2}
+  #Add paginate function 
+  paginates_per 3
 end

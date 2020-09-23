@@ -5,16 +5,16 @@ class TasksController < ApplicationController
     #Use params sort_expired + deadline property
     #to create tri ystem
     if params[:sort_expired]
-      @task = Task.all
+      @task = Task.order(:name).page params[:page]
       @task = @task.order(deadline: :desc)
     else
-      @task = Task.all
+      @task = Task.order(:name).page params[:page]
       @task = @task.order(created_at: :desc)
     end
 
     #Define Pirority, order by asc
     if params[:sort_priority_high]
-      @task = Task.all
+      @task = Task.order(:name).page params[:page]
       @task = @task.order(priority: :asc)
     end
 
@@ -40,8 +40,9 @@ class TasksController < ApplicationController
     end
 
     #Add Kaminari function to display the page
-    #@task = @task.page(params[:page]).per(5)
-    @task = Task.order(:last_name).page(params[:page])
+    #@task = Task.page params[:page]
+    #@tasks = Task.page(params[:page]).per(5)
+    @task = Task.order(:name).page params[:page]
   end
 
   def new       

@@ -30,9 +30,6 @@
             </div>
             <hr>
             <!-- Add paginate function-->
-            <div>
-              <%= paginate @task %>
-            </div>
             <table class="table">
               <thead class="thead-light">
                 <tr>
@@ -89,12 +86,12 @@
                     <%= link_to "Delete", task_path(task.id), method: :delete, data: {confirm: 'Are you sure?'},  :class => "btn btn-outline-danger"%> 
                   </td>
                 </tr>
-              </tbody>
+              </tbody> 
+              
             <% end %>
             </table>
           <hr>
           <%= paginate @task %>
-          <!--<%= render  "./kaminari/page" %>-->
           <hr>
           <div>
             <%= link_to 'New  Task', new_task_path,  :class => "btn btn-secondary btn-sm col-3"%>
