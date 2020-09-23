@@ -89,8 +89,11 @@
             <% end %>
             </table>
           <hr>
+          <nav aria-label="Page navigation example"><%= paginate @task %></nav>
+          <!--<%= render  "./kaminari/page" %>-->
+          <hr>
           <div>
-            <%= link_to 'New  Task', new_task_path,  :class => "btn btn-secondary btn-sm"%>
+            <%= link_to 'New  Task', new_task_path,  :class => "btn btn-secondary btn-sm col-3"%>
           </div>
         </div>
       </div>
