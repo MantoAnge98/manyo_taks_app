@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
   get 'users/index'
   root to: 'tasks#index'
   resources :tasks do
