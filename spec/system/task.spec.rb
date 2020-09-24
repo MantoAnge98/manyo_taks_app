@@ -51,6 +51,7 @@ require 'rails_helper'
       end
     end
   end
+  
   describe 'List function' do
     context 'If you go to the list screen' do
       it 'Displays the list of created tasks' do

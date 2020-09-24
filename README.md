@@ -60,3 +60,7 @@ $ heroku run rails db:migrate
 ## Accessing the application
 The address of the Heroku app is set to https://app.herokuapp.com/
 Access.
+=======
+The address of the Heroku app is set to https://appname.herokuapp.com/
+Access.
+
