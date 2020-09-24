@@ -14,7 +14,12 @@ class TasksController < ApplicationController
     elsif params[:name].blank? && params[:status]
       #This function checks if the name field is empty, 
       #then checks if the status field contains a value.
-      @task = Task.where(status: params[:status]).page params[:page]
+      if params[:status] == ""
+        flash[:danger] =  "No data found"
+        redirect_to tasks_path
+      else
+        @task = Task.where(status: params[:status]).page params[:page]
+      end
     elsif params[:name] && params[:status].blank?
       #This function checks if the status field is empty, 
       #then checks if the name field contains a value.
