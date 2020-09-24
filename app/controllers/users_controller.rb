@@ -19,10 +19,10 @@ class UsersController < ApplicationController
     else
       @user = User.new(user_params)
       if @user.save
-        redirect_to new_session_path, notice: "Account create, please log In"
-        #session[:user_id] = @user.id
-        #flash[:success] = "User Created!"
-        #redirect_to user_path(@user.id)
+        #redirect_to new_session_path, notice: "Account create, please log In"
+        session[:user_id] = @user.id
+        flash[:success] = "User Created!"
+        redirect_to user_path(@user.id)
       else
         flash[:danger]="something is wrong !"
         render :new
