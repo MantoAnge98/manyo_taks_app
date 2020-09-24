@@ -5,16 +5,16 @@ class TasksController < ApplicationController
     #Use params sort_expired + deadline property
     #to create tri ystem
     if params[:sort_expired]
-      @task = Task.order(:name).page params[:page]
+      @task = Task.all
       @task = @task.order(deadline: :desc)
     else
-      @task = Task.order(:name).page params[:page]
+      @task = Task.all
       @task = @task.order(created_at: :desc)
     end
 
     #Define Pirority, order by asc
     if params[:sort_priority_high]
-      @task = Task.order(:name).page params[:page]
+      @task = Task.all
       @task = @task.order(priority: :asc)
     end
 

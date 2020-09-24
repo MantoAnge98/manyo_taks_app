@@ -21,7 +21,7 @@ RSpec.describe Task, type: :model do
       context 'if the title and details of the task are described in detail' do
         it 'validation passes' do
           # Here's what you need to know
-          task = Task.new(name: 'hogehoge', detail: 'gehogeho', deadline: '2020-01-01')
+          task = Task.new(name: 'hogehoge', detail: 'gehogeho', deadline: '2020-01-01', status: 'in_progress', priority: 'high')
           expect(task).to be_valid
         end
       end

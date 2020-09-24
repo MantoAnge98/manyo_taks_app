@@ -7,7 +7,7 @@ FactoryBot.define do
     detail { 'Default content 1 created by Factory' }
     deadline {DateTime.now}
     status {'completed'}
-    priority {'hight'}
+    priority {'high'}
   end
   # Name the test data to be created as "second_task
   # (To name a class name that does not exist, specify the option "Test data for this class")
