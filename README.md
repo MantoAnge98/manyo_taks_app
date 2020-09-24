@@ -34,8 +34,6 @@ user_email     | string
 user_image     | text
 password_digest| string
 
-
-
 # Deployment steps for Heroku
 
 ## Commit.
@@ -60,7 +58,9 @@ The creation of the Heroku database is automatic, but the migration (table creat
 $ heroku run rails db:migrate
 
 ## Accessing the application
+The address of the Heroku app is set to https://app.herokuapp.com/
+Access.
+=======
 The address of the Heroku app is set to https://appname.herokuapp.com/
 Access.
 
-Translated with www.DeepL.com/Translator (free version)

@@ -8,6 +8,9 @@
         <div>
           <p>name: <%= @task.name %></p>
           <p>Detail: <%= @task.detail %></p>
+          <p>Deadline: <%= @task.deadline %></p>
+          <p>Status: <%= @task.status %></p>
+          <p>Priority: <%= @task.priority %></p>
         </div>
         <hr>
         <%= link_to "Task list", tasks_path , :class => "btn btn-primary col-2" %> |

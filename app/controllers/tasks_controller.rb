@@ -2,7 +2,41 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @task = Task.all
+    #Use params sort_expired + deadline property
+    #to create tri ystem
+    if params[:sort_expired]
+      @task = Task.all.order(deadline: :asc).page params[:page]
+      #It's date, there a choose order by asc (Old date)
+    #Define Pirority, order by desc
+    elsif params[:sort_priority] 
+      #Define function to sort by priority, there i choose order by asc (High => Middle => low)
+      @task = Task.all.order(priority: :asc).page params[:page]
+    elsif params[:name].blank? && params[:status]
+      #This function checks if the name field is empty, 
+      #then checks if the status field contains a value.
+      if params[:status] == ""
+        flash[:danger] =  "No data found"
+        redirect_to tasks_path
+      else
+        @task = Task.where(status: params[:status]).page params[:page]
+      end
+    elsif params[:name] && params[:status].blank?
+      #This function checks if the status field is empty, 
+      #then checks if the name field contains a value.
+      @task = Task.where(name: params[:name]).page params[:page]
+    elsif params[:name] && params[:status]
+      #This function controls whether the name and status fields contain values
+      @task = Task.where(name: params[:name]).where(status: params[:status]).page params[:page]
+    else 
+      @task = Task.all.order(created_at: :desc).page params[:page]
+    end
+      #return results that are both name and status
+     #If task exist enter in boucle
+
+    #Add Kaminari function to display the page
+    #@task = Task.page params[:page]
+    #@tasks = Task.page(params[:page]).per(5)
+    #@task = Task.order(:name).page params[:page]
   end
 
   def new       
@@ -34,12 +68,16 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find(params[:id])
-    if @task.update(task_params)
-      flash[:success] =  "Task was successfully updated."
-      redirect_to tasks_path
+    if params[:back]
+      render :new
     else
-      render :edit
+      @task = Task.find(params[:id])
+      if @task.update(task_params)
+        flash[:success] =  "Task was successfully updated."
+        redirect_to tasks_path
+      else
+        render :edit
+      end
     end
   end  
 
@@ -55,7 +93,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:name, :detail)
+    params.require(:task).permit(:name, :detail, :deadline, :status, :priority)
   end
   
   def set_task

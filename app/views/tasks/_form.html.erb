@@ -10,7 +10,7 @@
               <div id="error_explanation">
                 <h4>
                 <%= pluralize(@task.errors.count, "error") %> prohibited
-                this article from being saved:
+                this task from being saved:
                 </h4>
                 <ul>
                 <% @task.errors.full_messages.each do |msg| %>
@@ -25,6 +25,21 @@
             <%= form.text_field :name , :class => "form-control"%> 
             <%= form.label :detail%>
             <%= form.text_area :detail , :class => "form-control"%>
+            <%= form.label :deadline%>
+            <!-- Definir la date_field a maintenant.--> 
+            <%= form.date_field :deadline , :class => "form-control", :value => Time.now.strftime("%Y-%m-%d")%>  
+            
+            <!--<%= form.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.tasks.status.#{k}"), k]}, include_blank: "Please make your choice."%> -->
+            <div class="form-group">
+              <%= form.label :status%>
+              <%= form.select :status , Task.statuses.keys.map{|k| [("#{k}"), k]}, {} , {include_blank: "Please make your choice." , :class => 'custom-select'} %>
+            </div>
+            <!-- <%= form.select :status, options_for_select(["0","1","2"], {class: "form-control"})%>  -->
+            <div class="form-group">
+              <%= form.label :priority%>
+              <%= form.select :priority, Task.priorities.keys.map{|k| [("#{k}"), k]}, {} , {include_blank: "Please make your choice.", :class => 'custom-select'}%>
+              <!--<%= form.select :priority,  options_for_select(["0","1"], {class: "form-control"})%> -->       
+            </div>
             <hr> 
             <%= form.submit "Create Task", :class => "btn btn-primary col-3"%>
           <% end %> 

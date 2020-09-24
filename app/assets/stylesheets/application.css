@@ -17,7 +17,7 @@
 
 body {
   font-family: 'Calibri';
-  background-color:#dbdbdb
+  background-color:#fafafa
 }
 
 .nav-item{
@@ -33,7 +33,7 @@ body {
 }
  .footer{
   /*position: absolute;*/
-  position: fixed;
+  /*position: fixed;*/
   left: 0;
   bottom: 0;
   width: 100%; 
