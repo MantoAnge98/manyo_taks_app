@@ -1,2 +1,24 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<h1>Log In Session</h1> 
+<% unless logged_in?%>
+  <div class="alert alert-success" role="alert">
+    <%= notice%>
+  </div>
+  <%= form_with(scope: :session, url: sessions_path, local: true) do |form| %> 
+  <%= form.label :email %> 
+  <%= form.email_field :email,  class: "form-control"  %> 
+  <%= form.label :password %> 
+  <%= form.password_field :password,  class: "form-control"  %> 
+  <%= form.submit "Log in", class: "btn btn-success" %> 
+  <% end %>
+<%else%>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <p>You are already Logged, go to:</p>
+      <%= link_to  "New Post", new_blog_path, class: "btn btn-secondary" %> |
+       <%= link_to  "Post List", blogs_path, class: "btn btn-secondary" %> | 
+    </div>
+    <div class="col-3"></div>
+  </div>
+<% end%>
+    
