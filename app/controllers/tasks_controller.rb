@@ -1,7 +1,9 @@
 class TasksController < ApplicationController
+  before_action :logged_in_user, only: [:edit, :update, :destroy]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
+    @task = current_user.task
     #Use params sort_expired + deadline property
     #to create tri ystem
     if params[:sort_expired]
