@@ -1,0 +1,17 @@
+<h1>Your Profile</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <%=image_tag @user.image.url, class: "profile-pic" %>  
+    </div>
+    <div class="col-8 text-left">  
+      <h3>Name:<%=@user.name %></h3>
+      <p>Email:<%=@user.email%></p>
+      <%= link_to "Edit Profile", edit_user_path(@user.id), class: "btn btn-secondary"%>
+      <div class="profile-stats"><%= @user.btasks.count %> post(s)</div>
+   </div>
+   
+  </div>
+
+</div>
