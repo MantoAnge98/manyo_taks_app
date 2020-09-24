@@ -5,44 +5,33 @@ class TasksController < ApplicationController
     #Use params sort_expired + deadline property
     #to create tri ystem
     if params[:sort_expired]
-      @task = Task.all
-      @task = @task.order(deadline: :desc)
-    else
-      @task = Task.all
-      @task = @task.order(created_at: :desc)
+      @task = Task.all.order(deadline: :asc).page params[:page]
+      #It's date, there a choose order by asc (Old date)
+    #Define Pirority, order by desc
+    elsif params[:sort_priority] 
+      #Define function to sort by priority, there i choose order by asc (High => Middle => low)
+      @task = Task.all.order(priority: :asc).page params[:page]
+    elsif params[:name].blank? && params[:status]
+      #This function checks if the name field is empty, 
+      #then checks if the status field contains a value.
+      @task = Task.where(status: params[:status]).page params[:page]
+    elsif params[:name] && params[:status].blank?
+      #This function checks if the status field is empty, 
+      #then checks if the name field contains a value.
+      @task = Task.where(name: params[:name]).page params[:page]
+    elsif params[:name] && params[:status]
+      #This function controls whether the name and status fields contain values
+      @task = Task.where(name: params[:name]).where(status: params[:status]).page params[:page]
+    else 
+      @task = Task.all.order(created_at: :desc).page params[:page]
     end
-
-    #Define Pirority, order by asc
-    if params[:sort_priority_high]
-      @task = Task.all
-      @task = @task.order(priority: :asc)
-    end
-
-     #return results that are both name and status
+      #return results that are both name and status
      #If task exist enter in boucle
-    if params[:task].present?
-      #If task.name and task.status is present enter in boucle
-      if params[:task][:name].present? && params[:task][:status].present?
-        #return results that are both name and status
-        #name is string search name in databse with params is [:task][:name]
-        @task = @task.where('name LIKE ?', "%#{params[:task][:name]}%")
-        #status is integer it is easy to search in databse
-        @task = @task.where(status: params[:task][:status])
-      
-      #When the only parameter passed is the task name you will do this
-      elsif params[:task][:name].present?
-        @task = @task.where('name LIKE ?', "%#{params[:task][:name]}%")
-      
-      # When the only parameter passed is the task status you will do this
-      elsif params[:task][:status].present?
-        @task = @task.where(status: params[:task][:status].present?)
-      end
-    end
 
     #Add Kaminari function to display the page
     #@task = Task.page params[:page]
     #@tasks = Task.page(params[:page]).per(5)
-    @task = Task.order(:name).page params[:page]
+    #@task = Task.order(:name).page params[:page]
   end
 
   def new       
