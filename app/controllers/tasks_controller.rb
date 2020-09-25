@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
+  before_action :login_check, only: [:index,:show, :new, :edit, :destroy]
+  before_action :user_check, only:[:show, :edit, :destroy]
+  
   def index
     @user = User.all
     #Use params sort_expired + deadline property
@@ -31,13 +33,6 @@ class TasksController < ApplicationController
     else 
       @task = Task.all.order(created_at: :desc).page params[:page]
     end
-      #return results that are both name and status
-     #If task exist enter in boucle
-
-    #Add Kaminari function to display the page
-    #@task = Task.page params[:page]
-    #@tasks = Task.page(params[:page]).per(5)
-    #@task = Task.order(:name).page params[:page]
   end
 
   def new       
@@ -106,4 +101,22 @@ class TasksController < ApplicationController
   def set_task
     @task = Task.find(params[:id])
   end
+
+  #Verify is user is admin or not
+  def user_check
+    unless current_user.id == @task.user.id || current_user.admin?
+      flash[:danger] = "Access Denied !"
+      redirect_to tasks_path
+    end
+  end
+
+  #Verify is user is logged_in or not
+  def login_check
+    unless logged_in?
+      flash[:info] = "you are not login!"
+      redirect_to new_session_path
+    end
+  end
+  
+  
 end

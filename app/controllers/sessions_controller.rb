@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
         redirect_to user_path(user.id)
     else
       flash.now[:danger] = 'Error!! Connexion failed.'
-      render :new
+      redirect_to new_session_path
     end
   end
   def destroy
