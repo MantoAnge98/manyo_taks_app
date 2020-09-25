@@ -1,12 +1,27 @@
-<h1>Log In Session</h1> 
+<div class="container">
+  <br>
+  <h3>Log In Session</h3>
+</div>
+ 
 <% unless logged_in?%>
   <p><%= notice%></p>
   <%= form_with(scope: :session, url: sessions_path, local: true) do |form| %> 
-  <%= form.label :email %> 
-  <%= form.email_field :email,  class: "form-control"  %> 
-  <%= form.label :password %> 
-  <%= form.password_field :password,  class: "form-control"  %> 
-  <%= form.submit "Log in", class: "btn btn-success" %> 
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <div class="email-control">
+        <%= form.label :email %> 
+        <%= form.email_field :email,  class: "form-control"  %> 
+      </div>
+      <div class="password-control">
+        <%= form.label :password %> 
+        <%= form.password_field :password,  class: "form-control"  %> 
+      </div>
+      <hr>
+      <%= form.submit "Log in", class: "btn btn-success col-2" %> 
+    </div>
+    <div class="col-3"></div>
+  </div>
   <% end %>
 <%else%>
   <div class="row">

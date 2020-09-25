@@ -1,5 +1,7 @@
-<h2>Sign Up Session</h2>
-
+<div class="container">
+<br>
+  <h2>Sign Up Session</h2>
+</div>
 <% if @user.errors.any? %> 
   <div id="error_explanation"  class="alert alert-danger" role="alert"> 
     <h4><%= pluralize(@user.errors.count, "erreurs") %> empêche(nt) <%= @user.name %> d'être sauvegardée(s):</h4> 
@@ -13,28 +15,34 @@
 
 <% unless logged_in?%>
   <%= form_with(model:@user, local: true) do |f| %> 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control"  %> 
-  </div>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+      <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control"  %> 
+      </div>
 
-  <div class="field">
-    <%= f.label :email %> 
-    <%= f.email_field :email, class: "form-control"  %> 
-  </div>
+      <div class="field">
+        <%= f.label :email %> 
+        <%= f.email_field :email, class: "form-control"  %> 
+      </div>
 
-  <div class="field">
-    <%= f.label :password %> 
-    <%= f.password_field :password, class: "form-control"  %>
-  </div>
+      <div class="field">
+        <%= f.label :password %> 
+        <%= f.password_field :password, class: "form-control"  %>
+      </div>
 
-  <div class="field" style="margin-bottom: 15px;">
-    <%= f.label :password_confirmation %> 
-    <%= f.password_field :password_confirmation, autocomplete: "email", class: "form-control"  %> 
-  </div>
+      <div class="field" style="margin-bottom: 15px;">
+        <%= f.label :password_confirmation %> 
+        <%= f.password_field :password_confirmation, autocomplete: "email", class: "form-control"  %> 
+      </div>
 
-  <div class="actions">
-    <%= f.submit "Create my account", class: "btn btn-success" %> 
+      <div class="actions">
+        <%= f.submit "Create my account", class: "btn btn-success col" %> 
+      </div>
+    </div>
+    <div class="col-3"></div>
   </div>
   <% end %> 
   <%else%>
