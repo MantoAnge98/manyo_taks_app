@@ -1,16 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit]
-  
-  def index
-    @user = User.all
-  end
 
   def new
-    if logged_in?
-      redirect_to users_path, notice: "You are already logged"
-    else
-      @user = User.new
-    end
+    @user = User.new
   end
 
   def create
@@ -20,7 +12,6 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
       if @user.save
         #redirect_to new_session_path, notice: "Account create, please log In"
-        session[:user_id] = @user.id
         flash[:success] = "User Created!"
         redirect_to user_path(@user.id)
       else
@@ -53,7 +44,7 @@ class UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    @user = params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
   
   def set_user

@@ -1,11 +1,9 @@
 require 'rails_helper'
-  RSpec.describe 'task management features', type: :system do
-
-  before do
-    # The code in before is executed at the time when context is executed, for example, 
-    #when you go to the list screen or when the tasks are arranged in descending order of creation date.
-    visit tasks_path
-  end
+RSpec.describe 'task management features', type: :system do
+    before do
+      # The code in before is executed at the time when context is executed, for example, when you go to the list screen or when the tasks are arranged in descending order of creation date.
+      visit tasks_path
+    end
   describe 'search function' do
     before do
       # You can change the content of the test data as needed.
@@ -24,7 +22,7 @@ require 'rails_helper'
       end
     end
     context 'If you do a status search' do
-      It "narrows down the tasks that exactly match the status" do
+      it "narrows down the tasks that exactly match the status" do
         visit tasks_path
         # Find out about the "select" to select a pull-down to implement here.
         select "not started", from: "task_status"
@@ -47,11 +45,10 @@ require 'rails_helper'
 
   describe 'Create new feature' do
     context 'If you create a new task' do
-      It 'displays the tasks you have created' do
+      it 'displays the tasks you have created' do
       end
     end
   end
-  
   describe 'List function' do
     context 'If you go to the list screen' do
       it 'Displays the list of created tasks' do
@@ -84,18 +81,38 @@ require 'rails_helper'
 
     context 'Sort by end date' do
       it 'Tasks are in order of their end date' do
+        # task = FactoryBot.create(:task, name: 'task')
+        # task = FactoryBot.create(:second_task, name: 'task2')
+        # task = FactoryBot.create(:third_task, name: 'task3')        
+        # visit tasks_path
+        # click_on 'Sort by end date' 
+        # visit tasks_path(sort_expired: "true")
+        # task_list = all('.task_list')
+        # expect(task_list[0]).to have_content 'task3'
+        # expect(task_list[1]).to have_content 'task2'
+        # expect(task_list[2]).to have_content 'task'
       end
     end 
 
     context 'Sort by priority' do
-      it 'ordered by priority' do        
+      it 'ordered by priority' do
+        # task = FactoryBot.create(:task, name: 'task')
+        # task = FactoryBot.create(:second_task, name: 'task2')
+        # task = FactoryBot.create(:third_task, name: 'task3')
+        # visit tasks_path
+        # click_on 'Sort by priority'
+        # tasks_path(sort_priority_high: "true")
+        # task_list = all('.task_list')
+        # expect(task_list[0]).to have_content 'task'
+        # expect(task_list[1]).to have_content 'task2'
+        # expect(task_list[2]).to have_content 'task3'        
       end
     end
   end
 
   describe 'Show Details' do
      context 'When you go to any task detail screen' do
-       It 'displays the content of the relevant task' do
+       it 'displays the content of the relevant task' do
        end
      end
   end

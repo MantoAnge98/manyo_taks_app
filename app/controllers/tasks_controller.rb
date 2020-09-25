@@ -1,9 +1,8 @@
 class TasksController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update, :destroy]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @task = current_user.task
+    @user = User.all
     #Use params sort_expired + deadline property
     #to create tri ystem
     if params[:sort_expired]
@@ -42,11 +41,15 @@ class TasksController < ApplicationController
   end
 
   def new       
+    if params[:back]
+      @task = Task.new(task_params)
+    else        
       @task = Task.new
+    end
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if params[:back]
       render :new
     else
@@ -66,6 +69,7 @@ class TasksController < ApplicationController
 
   def confirm
     @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     render :new if @task.invalid?
   end
 
@@ -73,7 +77,7 @@ class TasksController < ApplicationController
     if params[:back]
       render :new
     else
-      @task = Task.find(params[:id])
+      @task = current_user.tasks.find(params{:id})
       if @task.update(task_params)
         flash[:success] =  "Task was successfully updated."
         redirect_to tasks_path
@@ -84,16 +88,17 @@ class TasksController < ApplicationController
   end  
 
   def show
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params{:id})
   end
 
   def destroy
+    @task = current_user.tasks.find(params{:id})
     @task.destroy
     flash[:info] =  "Task was successfully deleted."
     redirect_to tasks_path
   end
 
-  private
+  private 
   def task_params
     params.require(:task).permit(:name, :detail, :deadline, :status, :priority)
   end
