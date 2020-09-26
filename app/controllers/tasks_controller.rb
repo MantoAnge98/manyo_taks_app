@@ -4,10 +4,9 @@ class TasksController < ApplicationController
   before_action :user_check, only:[:show, :edit, :destroy]
   
   def index
-    @user = User.all
     #Use params sort_expired + deadline property
     #to create tri ystem
-    if params[:sort_expired]
+    if params[:sort_expired] == "true"
       @task = Task.all.order(deadline: :asc).page params[:page]
       #It's date, there a choose order by asc (Old date)
     #Define Pirority, order by desc
@@ -50,7 +49,7 @@ class TasksController < ApplicationController
     else
       if @task.save
         flash[:success] = "Task was successfully created."
-        redirect_to tasks_path
+        redirect_to user_path(current_user.id)
       else
         render :new
       end
@@ -75,7 +74,7 @@ class TasksController < ApplicationController
       @task = current_user.tasks.find(params{:id})
       if @task.update(task_params)
         flash[:success] =  "Task was successfully updated."
-        redirect_to tasks_path
+        redirect_to admin_users_path
       else
         render :edit
       end
@@ -90,7 +89,7 @@ class TasksController < ApplicationController
     @task = current_user.tasks.find(params{:id})
     @task.destroy
     flash[:info] =  "Task was successfully deleted."
-    redirect_to tasks_path
+    redirect_to admin_users_path
   end
 
   private 
@@ -102,21 +101,11 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  #Verify is user is admin or not
   def user_check
-    unless current_user.id == @task.user.id || current_user.admin?
-      flash[:danger] = "Access Denied !"
-      redirect_to tasks_path
-    end
+    redirect_to tasks_path, notice:('access deny') unless current_user.id == @task.user_id || current_user.admin?
   end
 
-  #Verify is user is logged_in or not
   def login_check
-    unless logged_in?
-      flash[:info] = "you are not login!"
-      redirect_to new_session_path
-    end
+    redirect_to new_session_path, notice:('you are not login, please login or create new accompt') unless logged_in?
   end
-  
-  
 end
