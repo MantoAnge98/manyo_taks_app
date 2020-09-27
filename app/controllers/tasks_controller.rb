@@ -102,7 +102,7 @@ class TasksController < ApplicationController
   end
 
   def user_check
-    redirect_to tasks_path, notice:('access deny') unless current_user.id == @task.user_id || current_user.admin?
+    redirect_to tasks_path, flash[:info] = "No Access" unless current_user.id == @task.user_id || current_user.admin?
   end
 
   def login_check

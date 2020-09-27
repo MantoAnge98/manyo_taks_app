@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :destroy, :update]
 
   def index
-    if current_user.admin
+    if current_user.try(:admin?)
       @user = User.all.order('created_at DESC').page params[:page]
     else
       flash[:success] = 'Create Admin User'
@@ -15,10 +15,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
     if @user.save
+      @user = User.new(user_params)
       flash[:success] = 'user are successfully create'
-      redirect_to (admin_users_path)
+      redirect_to admin_users_path
     else
       flash[:danger] = 'Something wrong'
       render :new
@@ -29,7 +29,7 @@ class Admin::UsersController < ApplicationController
     if current_user.admin
       @task = @user.tasks
     else
-      flash[:success] = 'Please Create Admin User'
+      flash[:info] = 'Please Create Admin User'
       redirect_to new_admin_user_path
     end
     
@@ -59,9 +59,9 @@ class Admin::UsersController < ApplicationController
   def destroy
     if @user.destroy
       flash[:success] = 'user are successfully destroy'
-      redirect_to (admin_users_path)
+      redirect_to admin_users_path
     else
-      if current_user.admin?
+      if current_user.admin? == @user.destroy
         flash[:danger] = 'you are currently the only administrator. Please choose another administrator before'
         redirect_to admin_users_path
       else

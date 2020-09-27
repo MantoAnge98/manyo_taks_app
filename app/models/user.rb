@@ -16,18 +16,18 @@ class User < ApplicationRecord
   #Define private method 
   private
   def destroy_admin
-    if User.where(admin: true).count == 1 && self.admin == true
+    if User.where(admin: true).count == 1
       user = User.where(admin: true)
       throw :abort if user[0] == self
     end
   end
 
   def update_admin
-    if User.where(admin: true).count == 1 && self.admin == [true, false]
+    if User.where(admin: true).count == 1 && admin == false
       user = User.where(admin: true)
       if user[0] == self
         errors.add(:user, 'you are currently the only administrator. Please choose another administrator before ')
-        throw(:abort)
+        throw :abort
       end
     end
   end

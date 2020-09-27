@@ -69,11 +69,11 @@ class UsersController < ApplicationController
   end
 
   def user_check
-    redirect_to user_path(current_user.id), notice:('access deny') unless current_user == @user || current_user.admin?
+    redirect_to user_path(current_user.id), flash[:info] = "No Access" unless current_user == @user || current_user.admin?
   end
 
   def login_check
-    redirect_to user_path(current_user.id), notice:('you are already logged') if logged_in?
+    redirect_to user_path(current_user.id), flash[:success]= "you are already logged !!" if logged_in?
   end
 
 end
