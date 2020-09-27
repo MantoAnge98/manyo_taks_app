@@ -2,8 +2,8 @@ require 'rails_helper'
   RSpec.describe 'task management features', type: :system do
 
   before do
-    # The code in before is executed at the time when context is executed, for example, 
-    #when you go to the list screen or when the tasks are arranged in descending order of creation date.
+    FactoryBot.create(:user)
+    FactoryBot.create(:task, user: user)
     visit tasks_path
   end
   describe 'search function' do
