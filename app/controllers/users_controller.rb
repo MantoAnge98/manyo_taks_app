@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   before_action :login_check, only:[:new, :index]
 
   def index
-    
   end
   
   def new
@@ -18,10 +17,10 @@ class UsersController < ApplicationController
         redirect_to admin_users_path
         flash[:success]="account created successfull"
       else
-      session[:user_id] = @user.id
-      redirect_to users_path
-      flash[:success]="account created successfull"
-    end
+        session[:user_id] = @user.id
+        redirect_to users_path
+        flash[:success]="account created successfull"
+      end
     else
       flash[:danger]="something is wrong !"
       render :new
@@ -69,11 +68,15 @@ class UsersController < ApplicationController
   end
 
   def user_check
-    redirect_to user_path(current_user.id), flash[:info] = "No Access" unless current_user == @user || current_user.admin?
+     unless current_user == @user || current_user.admin?
+      redirect_to user_path(current_user.id)
+     end
   end
 
   def login_check
-    redirect_to user_path(current_user.id), flash[:success]= "you are already logged !!" if logged_in?
+     if logged_in?
+      redirect_to user_path(current_user.id)
+     end
   end
 
 end
