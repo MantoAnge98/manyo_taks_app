@@ -6,12 +6,17 @@ class Admin::UsersController < ApplicationController
       @user = User.all.order('created_at DESC').page params[:page]
     else
       flash[:success] = 'Create Admin User'
-      redirect_to new_admin_user_path
+      redirect_to new_user_path
     end
   end
 
   def new
-    @user = User.new
+    if current_user.try(:admin?)
+      @user = User.new
+    else
+      flash[:success] = 'Administration'
+      redirect_to new_user_path
+    end
   end
 
   def create
@@ -30,7 +35,8 @@ class Admin::UsersController < ApplicationController
       @task = @user.tasks
     else
       flash[:info] = 'Please Create Admin User'
-      redirect_to new_admin_user_path
+      redirect_to new_user_path
+      #redirect_to new_admin_user_path
     end
     
   end
@@ -56,12 +62,13 @@ class Admin::UsersController < ApplicationController
       end
     end
   end
+
   def destroy
-    if @user.destroy
+    if current_user.admin? == @user.destroy  
       flash[:success] = 'user are successfully destroy'
       redirect_to admin_users_path
     else
-      if current_user.admin? == @user.destroy
+      if current_user.admin? != @user.destroy
         flash[:danger] = 'you are currently the only administrator. Please choose another administrator before'
         redirect_to admin_users_path
       else
@@ -71,12 +78,12 @@ class Admin::UsersController < ApplicationController
     end
   end
   
-private
-def user_params
-  params.require(:user).permit(:name, :email, :admin, :password,  :password_confirmation)
-end
+  private
+  def user_params
+    params.require(:user).permit(:name, :email, :admin, :password,  :password_confirmation)
+  end
 
-def set_user
-  @user = User.find(params[:id])
-end
+  def set_user
+    @user = User.find(params[:id])
+  end
 end

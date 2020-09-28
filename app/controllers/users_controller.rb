@@ -4,18 +4,23 @@ class UsersController < ApplicationController
   before_action :login_check, only:[:new, :index]
 
   def index
+    @user = User.all
   end
   
   def new
-    @user = User.new
+    if logged_in?
+      redirect_to users_path, notice: "You are already logged"
+    else
+      @user = User.new
+    end
   end
 
   def create
     @user = User.new(user_params)
     if @user.save
       if logged_in?
-        redirect_to admin_users_path
-        flash[:success]="account created successfull"
+        redirect_to tasks_path
+        flash[:success]="Account created successfull"
       else
         session[:user_id] = @user.id
         redirect_to users_path
@@ -43,7 +48,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       flash[:success]= "User updated !!"
       if current_user.admin?
-        redirect_to admin_users_path
+        redirect_to tasks_path
       else
         redirect_to user_path(current_user.id)
       end
