@@ -1,0 +1,22 @@
+<h1>Your Profile</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <img src="/johndoe.jpeg" class="profile-pic">
+    </div>
+    <div class="col-8 text-left">  
+      <h3>Name:<%=@user.name %></h3>
+      <p>Email:<%=@user.email%></p>
+     <!-- <%= link_to "Edit Profile", edit_user_path(@user.id), class: "btn btn-secondary"%> -->
+      <div class="profile-stats"><%= @user.tasks.count %> task(s)</div>
+   </div>
+  </div>
+
+  <% if logged_in?%>
+    <%= link_to "Task list", tasks_path , :class => "btn btn-primary  btn-sm col-2" %> |
+    <%= link_to 'New  Task', new_task_path,  :class => "btn btn-secondary btn-sm col-2"%>
+  <%else%>
+    <%= link_to "Sign in", new_session_path, class: "btn btn-secondary"%>
+  <%end%>
+</div>

@@ -1,10 +1,12 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
+  before_action :login_check, only: [:index,:show, :new, :edit, :destroy]
+  before_action :user_check, only:[:show, :edit, :destroy]
+  
   def index
     #Use params sort_expired + deadline property
     #to create tri ystem
-    if params[:sort_expired]
+    if params[:sort_expired] == "true"
       @task = Task.all.order(deadline: :asc).page params[:page]
       #It's date, there a choose order by asc (Old date)
     #Define Pirority, order by desc
@@ -30,27 +32,24 @@ class TasksController < ApplicationController
     else 
       @task = Task.all.order(created_at: :desc).page params[:page]
     end
-      #return results that are both name and status
-     #If task exist enter in boucle
-
-    #Add Kaminari function to display the page
-    #@task = Task.page params[:page]
-    #@tasks = Task.page(params[:page]).per(5)
-    #@task = Task.order(:name).page params[:page]
   end
 
   def new       
+    if params[:back]
+      @task = Task.new(task_params)
+    else        
       @task = Task.new
+    end
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if params[:back]
       render :new
     else
       if @task.save
         flash[:success] = "Task was successfully created."
-        redirect_to tasks_path
+        redirect_to user_path(current_user.id)
       else
         render :new
       end
@@ -64,6 +63,7 @@ class TasksController < ApplicationController
 
   def confirm
     @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     render :new if @task.invalid?
   end
 
@@ -71,10 +71,10 @@ class TasksController < ApplicationController
     if params[:back]
       render :new
     else
-      @task = Task.find(params[:id])
+      @task = current_user.tasks.find(params{:id})
       if @task.update(task_params)
         flash[:success] =  "Task was successfully updated."
-        redirect_to tasks_path
+        redirect_to admin_users_path
       else
         render :edit
       end
@@ -82,21 +82,30 @@ class TasksController < ApplicationController
   end  
 
   def show
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params{:id})
   end
 
   def destroy
+    @task = current_user.tasks.find(params{:id})
     @task.destroy
     flash[:info] =  "Task was successfully deleted."
-    redirect_to tasks_path
+    redirect_to admin_users_path
   end
 
-  private
+  private 
   def task_params
     params.require(:task).permit(:name, :detail, :deadline, :status, :priority)
   end
   
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def user_check
+    redirect_to tasks_path, flash[:info] = "No Access" unless current_user.id == @task.user_id || current_user.admin?
+  end
+
+  def login_check
+    redirect_to new_session_path, notice:('you are not login, please login or create new accompt') unless logged_in?
   end
 end

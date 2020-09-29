@@ -23,7 +23,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <%= render  "layouts/public_nav" %>
+             <% if logged_in?%>
+              <%= render  "layouts/user_nav" %>
+            <% else %>
+              <%= render  "layouts/public_nav" %>
+            <% end %>
           </ul>
         </div>
       </div>

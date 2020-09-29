@@ -1,0 +1,29 @@
+.profile-pic{
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+}
+
+.profile-pic img{
+  width: auto;
+  height: 100%;
+  margin-left: -50px;
+}
+
+.profile-stats{
+  width: 120px;
+  float: left;
+}
+
+.footer{
+  position: absolute;
+  /*position: fixed;*/
+
+  
+}
+
+/* */
+

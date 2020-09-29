@@ -20,6 +20,13 @@ body {
   background-color:#fafafa
 }
 
+#name{
+  color: white;
+  font-weight: 700;
+  margin-top: 8px;
+  padding-right: 15px;
+}
+
 .nav-item{
   padding-right: 5px;
 }
@@ -33,13 +40,13 @@ body {
 }
  .footer{
   /*position: absolute;*/
-  /*position: fixed;*/
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%; 
   text-align: center;
   background-color: #1f0b29!important;
-  margin-top: 25px; 
+  margin-top: 125px; 
   line-height: 60px;
   
 }
