@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-
+  
   def new
     unless logged_in?
       @user = User.new

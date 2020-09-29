@@ -6,20 +6,16 @@ class Admin::UsersController < ApplicationController
       @user = User.all.order('created_at DESC').page params[:page]
     else
       flash[:success] = 'Acces Denied, create User'
-      redirect_to new_user_path
-    end
-  end
-
-  def new
-    if current_user.try(:admin?)
-      @user = User.new
-    else
-      flash[:success] = 'Administration'
       redirect_to new_admin_user_path
     end
   end
 
+  def new
+    @user = User.new
+  end
+
   def create
+    @user = User.new(user_params)
     if @user.save
       @user = User.new(user_params)
       flash[:success] = 'user are successfully create'
@@ -27,6 +23,13 @@ class Admin::UsersController < ApplicationController
     else
       flash[:danger] = 'Something wrong'
       render :new
+      if current_user.admin
+        @task = @user.tasks
+      else
+        flash[:info] = 'Please create Admin User'
+        redirect_to admin_users_path
+      end
+      
     end
   end
 
@@ -35,8 +38,8 @@ class Admin::UsersController < ApplicationController
       @task = @user.tasks
     else
       flash[:info] = 'Please Create Admin User'
-      redirect_to new_user_path
-      #redirect_to new_admin_user_path
+      #redirect_to new_user_path
+      redirect_to new_admin_users_path
     end
     
   end
@@ -46,7 +49,7 @@ class Admin::UsersController < ApplicationController
   
   def update
     if @user.update(user_params)
-      flash[:success]="user update"
+      flash[:success]="User update"
       if current_user.admin?
         redirect_to admin_users_path
       else
@@ -66,7 +69,7 @@ class Admin::UsersController < ApplicationController
   def destroy
     if @user.destroy
       flash[:success] = 'user are successfully destroy'
-      redirect_to (admin_users_path)
+      redirect_to admin_users_path
     else
       if current_user.admin?
         flash[:danger] = 'you are currently the only administrator. Please choose another administrator before'

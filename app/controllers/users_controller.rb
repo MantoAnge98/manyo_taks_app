@@ -47,13 +47,10 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:success]= "User updated !!"
-      if current_user.admin?
-        redirect_to tasks_path
-      else
-        redirect_to user_path(current_user.id)
-      end
+      redirect_to user_path(current_user.id)
     else
-      render :new
+      flash[:danger]= "Something is wrong !!"
+      render :edit
     end
   end
 
