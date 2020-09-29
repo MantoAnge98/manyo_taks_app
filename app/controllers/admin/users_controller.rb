@@ -5,7 +5,7 @@ class Admin::UsersController < ApplicationController
     if current_user.try(:admin?)
       @user = User.all.order('created_at DESC').page params[:page]
     else
-      flash[:success] = 'Create Admin User'
+      flash[:success] = 'Acces Denied, create User'
       redirect_to new_user_path
     end
   end
@@ -15,7 +15,7 @@ class Admin::UsersController < ApplicationController
       @user = User.new
     else
       flash[:success] = 'Administration'
-      redirect_to new_user_path
+      redirect_to new_admin_user_path
     end
   end
 
@@ -64,15 +64,15 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    if current_user.admin? == @user.destroy  
+    if @user.destroy
       flash[:success] = 'user are successfully destroy'
-      redirect_to admin_users_path
+      redirect_to (admin_users_path)
     else
-      if current_user.admin? != @user.destroy
+      if current_user.admin?
         flash[:danger] = 'you are currently the only administrator. Please choose another administrator before'
         redirect_to admin_users_path
       else
-        flash[:danger] = 'Something wrong'
+        flash[:danger] = 'oO something wrong'
         redirect_to admin_users_path
       end
     end
