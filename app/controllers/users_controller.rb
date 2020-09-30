@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :set_user, only:[:show, :edit, :update, :destroy]
-  before_action :user_check, only: [:index,:show,:edit, :update, :destroy]
   before_action :login_check, only:[:new, :index]
 
   def index
@@ -37,7 +36,12 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    if logged_in?
+      @user = User.find(params[:id])
+      
+    else
+      redirect_to users_path, notice: "You are already logged"
+    end
   end
 
   def destroy
@@ -67,12 +71,6 @@ class UsersController < ApplicationController
   
   def set_user
     @user = User.find(params[:id])
-  end
-
-  def user_check
-     unless current_user == @user || current_user.admin?
-      redirect_to user_path(current_user.id)
-     end
   end
 
   def login_check

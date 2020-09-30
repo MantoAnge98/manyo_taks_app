@@ -1,13 +1,8 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :destroy, :update]
-
+  before_action :check_admin
   def index
-    if current_user.try(:admin?)
-      @user = User.all.order('created_at DESC').page params[:page]
-    else
-      flash[:success] = 'Acces Denied, create User'
-      redirect_to new_user_path
-    end
+    @user = User.all.order('created_at DESC').page params[:page]
   end
 
   def new
@@ -17,31 +12,17 @@ class Admin::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @user = User.new(user_params)
       flash[:success] = 'user are successfully create'
-      redirect_to users_path
+      redirect_to (admin_users_path)
     else
-      flash[:danger] = 'Something wrong'
+      flash[:danger] = 'oO something wrong'
       render :new
-      if current_user.admin
-        @task = @user.tasks
-      else
-        flash[:info] = 'Please create Admin User'
-        redirect_to users_path
-      end
       
     end
   end
 
   def show
-    if current_user.admin
-      @task = @user.tasks
-    else
-      flash[:info] = 'Please Create Admin User'
-      #redirect_to new_user_path
-      redirect_to new_admin_users_path
-    end
-    
+    @task = @user.tasks
   end
   
   def edit
@@ -79,6 +60,14 @@ class Admin::UsersController < ApplicationController
   
   
   private
+  def check_admin
+    if logged_in?
+      redirect_to (root_path) unless current_user.admin?
+    else
+      redirect_to(new_session_path)
+    end
+  end
+
   def user_params
     params.require(:user).permit(:name, :email, :admin, :password,  :password_confirmation)
   end

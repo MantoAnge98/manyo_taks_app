@@ -1,12 +1,7 @@
 class SessionsController < ApplicationController
+  before_action :session_check, only:[:new]
   
   def new
-    unless logged_in?
-      @user = User.new
-    else
-      flash[:info] = 'You are already logged in !'
-      redirect_to root_path
-    end
   end
 
   def create
@@ -31,4 +26,7 @@ class SessionsController < ApplicationController
     redirect_to new_session_path
   end
 
+  def session_check
+    redirect_to user_path(current_user.id), notice:('you are already logged') if logged_in?
+  end
 end
