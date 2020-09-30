@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :destroy, :update]
-
+  before_action :check_admin
   def index
     @user = User.all.order('created_at DESC').page params[:page]
   end
@@ -60,7 +60,13 @@ class Admin::UsersController < ApplicationController
   
   
   private
-
+  def check_admin
+    if logged_in?
+      redirect_to (root_path) unless current_user.admin?
+    else
+      redirect_to(new_session_path)
+    end
+  end
 
   def user_params
     params.require(:user).permit(:name, :email, :admin, :password,  :password_confirmation)
