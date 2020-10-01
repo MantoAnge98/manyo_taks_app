@@ -38,7 +38,7 @@ class Admin::UsersController < ApplicationController
       end
     else
       if current_user.admin?
-        flash[:danger] = 'you are currently the only administrator. Please choose another administrator before'
+        flash[:danger] = 'Please choose another administrator before because you are currently the only administrator.'
         render :new
       else
         flash[:danger] = 'Something wrong !!'
@@ -48,14 +48,15 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find(params[:id])
-    if (current_user == user) && (current_user.admin?)
-      flash[:error] = "Can not delete own admin account!"
+    @user = User.find(params[:id])
+    if (current_user == @user) && (current_user.admin?)
+      flash[:danger] = "Can not delete own admin account!"
+      redirect_to (admin_users_path)
     else
       user.destroy
       flash[:success] = "User destroyed."
     end
-  redirect_to users_path
+   
   end
   
   
