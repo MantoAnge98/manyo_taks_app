@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'errors/internal_error'
   resources :sessions, only: [:new, :create, :destroy]
   resources :users, only:[:index,:new,:show,:create,:edit,:update,:destroy]
 
