@@ -30,6 +30,6 @@ module ManyoTaskApp
      #Dynamique Error 404 and 500
      config.exceptions_app = self.routes
      config.assets.initialize_on_precompile = false
-   
+    
   end
 end
