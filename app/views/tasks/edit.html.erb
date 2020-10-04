@@ -40,6 +40,11 @@
                     <%= form.select :priority, Task.priorities.keys.map{|k| [("#{k}"), k]}, {} , {include_blank: "Please make your choice.", :class => 'custom-select'}%>
                     <!--<%= form.select :priority,  options_for_select(["0","1"], {class: "form-control"})%> -->       
                   </div>
+                  <div class="form-group">
+                    <% current_user.labels.all.each do |label| %>
+                    <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
+                    <%= label.name %>
+                  </div>
                   <!--<%= form.select :priority,  options_for_select(["0","1"], {class: "form-control"})%> -->         
                 </div>
                 <hr>

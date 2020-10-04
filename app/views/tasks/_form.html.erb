@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-2"></div>
       <div class="col-8">
-        <h4>Enter Information</h4>
+          <h4>Enter Information</h4>
           <%= form_with(model: @task, local: true, url: confirm_tasks_path) do |form| %>
             <% if @task.errors.any? %>
               <div id="error_explanation">
@@ -40,12 +40,22 @@
               <%= form.select :priority, Task.priorities.keys.map{|k| [("#{k}"), k]}, {} , {include_blank: "Please make your choice.", :class => 'custom-select'}%>
               <!--<%= form.select :priority,  options_for_select(["0","1"], {class: "form-control"})%> -->       
             </div>
+            <div class="form-group">
+              <% current_user.labels.all.each do |label| %>
+                <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
+                <label style="background-color: aquamarine"><%= label.name %></label>
+              <% end %>
+            </div>
             <hr> 
-            <%= form.submit "Create Task", :class => "btn btn-primary col-3"%>
+            <div class="row" style="margin-bottom:100px">
+              <div class="col-3"></div>  
+              <h4> Go to:</h4>
+              <%= link_to "All Task", tasks_path, :class => "btn btn-secondary col-3" %>  
+              <%= form.submit "Create Task", :class => "btn btn-primary col-3"%>
+              <div class="col-3"></div>  
+            </div>
           <% end %> 
           <hr>
-          <h4> Go to:</h4>
-          <%= link_to "All Task", tasks_path, :class => "btn btn-secondary col-3" %> 
       </div>
     </div>
   </div>

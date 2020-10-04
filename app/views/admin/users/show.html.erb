@@ -29,6 +29,7 @@
         <th>Deadline</th>
         <th>Priority</th>
         <th>Status</th>
+        <th>labels</th>
       </tr>
     </thead>
     <% @task.each do |task| %>
@@ -39,6 +40,11 @@
         <td><%= task.deadline %></td>
         <td><%= task.priority %></td>
         <td><%= task.status %></td>
+        <td>
+          <% task.labels.each do |label|%>
+              <%= label.name%>,
+          <% end %>
+        </td>
         <td>
           <%= link_to 'Edit Task', edit_task_path(task),:class=>"btn btn-secondary" %> |
           <%= link_to 'Delete Task', method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-danger" %>
