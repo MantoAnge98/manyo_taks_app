@@ -85,10 +85,9 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = current_user.tasks.find(params{:id})
     @task.destroy
     flash[:info] =  "Task was successfully deleted."
-    redirect_to admin_users_path
+    redirect_to tasks_path
   end
 
   private 
