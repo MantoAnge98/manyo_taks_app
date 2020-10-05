@@ -72,10 +72,9 @@ class TasksController < ApplicationController
     if params[:back]
       render :new
     else
-      @task = current_user.tasks.find(params{:id})
       if @task.update(task_params)
         flash[:success] =  "Task was successfully updated."
-        redirect_to admin_users_path
+        redirect_to user_path(current_user.id)
       else
         render :edit
       end
@@ -83,7 +82,6 @@ class TasksController < ApplicationController
   end  
 
   def show
-    @task = current_user.tasks.find(params{:id})
   end
 
   def destroy

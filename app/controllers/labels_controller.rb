@@ -1,10 +1,17 @@
 class LabelsController < ApplicationController
   before_action :set_label, only: [:edit, :update, :destroy]
+
+  def index
+    @label = Label.all.order(created_at: :desc).page params[:page]
+  end
+  
   def new
     @label = Label.new
   end
+
   def edit
   end
+
   def create
     @label = Label.new (label_params)
     @label.user_id = current_user.id
@@ -12,6 +19,7 @@ class LabelsController < ApplicationController
     flash[:success] = 'Label successfully create !'
     redirect_to user_path(current_user.id)
   end
+
   def update
     if @label.update(label_params)
       flash[:success] = 'Label successfully update !'
@@ -20,6 +28,7 @@ class LabelsController < ApplicationController
       render :edit
     end
   end
+  
   def destroy
     @label.destroy
     flash[:success] = 'label successfully destroy !'

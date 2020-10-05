@@ -98,9 +98,9 @@
                   </td>
                   <td>
                     <!--btn-sm réduit à la taille minmale le bouton-->
-                    <%= link_to "See", task_path(task.id), :class => "btn btn-outline-success"%>  
-                    <%= link_to "Edit", edit_task_path(task.id),  :class => "btn btn-outline-primary"%>
-                    <%= link_to "Delete", task_path(task.id), method: :delete, data: {confirm: 'Are you sure?'},  :class => "btn btn-outline-danger"%> 
+                    <%= link_to "See", task_path(task), :class => "btn btn-outline-success"%>  
+                    <%= link_to "Edit", edit_task_path(task),  :class => "btn btn-outline-primary"%>
+                    <%= link_to "Delete", task, method: :delete, data: {confirm: 'Are you sure?'},  :class => "btn btn-outline-danger"%> 
                   </td>
                 </tr> 
                 <%end%>
@@ -137,7 +137,6 @@
                 <td>
                   <%= link_to "Edit Label", edit_label_path(label.id),:class=>"btn btn-info btn-sm"%> |
                   <%= link_to "Delete Label", label_path(label.id), method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-secondary btn-sm"%>|
-                  <%= link_to "Add Label", new_label_path,:class=>"btn btn-primary btn-sm" %>
                   <% end %>
                   <% if current_user.labels.empty? %> |
                   <%= link_to "Add Label", new_label_path,:class=>"btn btn-primary btn-sm offset-3" %>
@@ -146,6 +145,7 @@
             </tbody>
               <% end %>   
           </table>
+          <%= link_to "Add Label", new_label_path,:class=>"btn btn-primary btn-sm col-4" %>
           </div>
         </div>
       </div>
