@@ -32,6 +32,7 @@ class TasksController < ApplicationController
     else 
       @task = Task.all.order(created_at: :desc).page params[:page]
     end
+    @task = @task.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
   end
 
   def new       
@@ -71,10 +72,9 @@ class TasksController < ApplicationController
     if params[:back]
       render :new
     else
-      @task = current_user.tasks.find(params{:id})
       if @task.update(task_params)
         flash[:success] =  "Task was successfully updated."
-        redirect_to admin_users_path
+        redirect_to user_path(current_user.id)
       else
         render :edit
       end
@@ -82,19 +82,17 @@ class TasksController < ApplicationController
   end  
 
   def show
-    @task = current_user.tasks.find(params{:id})
   end
 
   def destroy
-    @task = current_user.tasks.find(params{:id})
     @task.destroy
     flash[:info] =  "Task was successfully deleted."
-    redirect_to admin_users_path
+    redirect_to tasks_path
   end
 
   private 
   def task_params
-    params.require(:task).permit(:name, :detail, :deadline, :status, :priority)
+    params.require(:task).permit(:name, :detail, :deadline, :status, :priority, { label_ids: [] })
   end
   
   def set_task

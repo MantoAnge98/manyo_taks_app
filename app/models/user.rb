@@ -3,6 +3,7 @@ class User < ApplicationRecord
   before_update :update_admin
 
   has_many :tasks, dependent: :destroy
+  has_many :labels, dependent: :destroy
   has_secure_password
   #Transform Uppercase to lowercase before save
   before_validation {email.downcase}

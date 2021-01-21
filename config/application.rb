@@ -18,6 +18,9 @@ module ManyoTaskApp
     config.active_record.default_timezone = :local   
     
     config.generators do |g|
+      g.assets false
+      g.helper false
+      g.jbuilder false
       g.test_framework :rspec,
         model_specs: true,
         view_specs: false,
@@ -26,5 +29,10 @@ module ManyoTaskApp
         controller_specs: false,
         request_specs: false
     end
+
+     #Dynamique Error 404 and 500
+     config.exceptions_app = self.routes
+     config.assets.initialize_on_precompile = false
+    
   end
 end

@@ -18,4 +18,7 @@ class Task < ApplicationRecord
   enum priority: { high: 0, middle: 1, low: 2 }
   #Add paginate function 
   paginates_per 4
+  #Labelling
+  has_many :labellings, dependent: :destroy
+  has_many :labels, through: :labellings
 end

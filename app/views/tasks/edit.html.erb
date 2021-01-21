@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <h1 class="mt-5">Edit page</h1>
-    <div class="row">
+    <div class="row" style="margin-bottom:100px">
       <div class="col-2"></div>
       <div class="col-8">
 
@@ -40,13 +40,19 @@
                     <%= form.select :priority, Task.priorities.keys.map{|k| [("#{k}"), k]}, {} , {include_blank: "Please make your choice.", :class => 'custom-select'}%>
                     <!--<%= form.select :priority,  options_for_select(["0","1"], {class: "form-control"})%> -->       
                   </div>
+                  <div class="form-group">
+                    <% current_user.labels.all.each do |label| %>
+                    <!-- Add function to checked when i want to edit-->
+                    <%= form.check_box :label_ids, { multiple: true, checked: @task.label_ids.include?(label.id), disabled: label[:disabled], include_hidden: false}, label[:id] %>
+                    <label style="background-color: aquamarine"><%= label.name %></label>
+                    <%end%>
+                  </div>
                   <!--<%= form.select :priority,  options_for_select(["0","1"], {class: "form-control"})%> -->         
                 </div>
                 <hr>
                 <%= form.submit  "Edit", :class => "btn btn-success col-3" %> |
                 <%= form.submit "Back", name: 'back', :class => "btn btn-secondary col-3" %>
               </div>
-              
             </div>
             <hr>
             <%= link_to "Task List", tasks_path, :class => "btn btn-primary col-4"  %>

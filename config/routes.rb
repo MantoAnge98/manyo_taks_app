@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'labels/new'
+  get 'errors/internal_error'
   resources :sessions, only: [:new, :create, :destroy]
   resources :users, only:[:index,:new,:show,:create,:edit,:update,:destroy]
 
@@ -18,5 +20,12 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :labels
+  
+  #routes to errors
+  get '404', :to => 'errors#not_found'
+  get '500', :to => 'errors#internal_error'
+
 end
  
